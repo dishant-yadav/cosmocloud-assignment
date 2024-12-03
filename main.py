@@ -1,5 +1,8 @@
 from fastapi import FastAPI
 from routes import router as student_router
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = FastAPI()
 

@@ -26,7 +26,7 @@ def create_student_endpoint(student: UserCreateSchema):
     return {"id": student_id, **student.dict()}
 
 
-@router.get("/students", response_model=ListStudentsResponse)
+@router.get("/students", response_model=ListStudentsResponse, status_code=200)
 def get_students(
     country: str = Query(default=None, description="Filter by country"),
     age: int = Query(default=None, description="Minimum age"),
@@ -36,7 +36,7 @@ def get_students(
     return {"data": students}
 
 
-@router.get("/students/{id}", response_model=UserCreateSchema)
+@router.get("/students/{id}", response_model=UserCreateSchema, status_code=200)
 def get_student_endpoint(id: str):
     student = fetch_student_by_id(id)
     if not student:
@@ -52,7 +52,7 @@ def update_student_endpoint(id: str, student: UserUpdateSchema, status_code=204)
     return {"message": "Student updated successfully"}
 
 
-@router.delete("/students/{id}")
+@router.delete("/students/{id}", status_code=200)
 def delete_student_endpoint(id: str):
     deleted = delete_student(id)
     if not deleted:
