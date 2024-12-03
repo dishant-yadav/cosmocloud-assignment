@@ -21,7 +21,7 @@ def list_students(country: str = None, min_age: int = None) -> list:
     return [student for student in students]
 
 
-def fetch_student_by_id(student_id: str):
+def fetch_student_by_id(student_id: str) -> object:
     try:
         obj_id = ObjectId(student_id)
     except Exception:
@@ -33,13 +33,13 @@ def fetch_student_by_id(student_id: str):
     return student
 
 
-def update_student(student_id: str, update_data: dict):
+def update_student(student_id: str, update_data: dict) -> object:
     result = students_collection.update_one(
         {"_id": ObjectId(student_id)}, {"$set": update_data}
     )
     return result.modified_count > 0
 
 
-def delete_student(student_id: str):
+def delete_student(student_id: str) -> object:
     result = students_collection.delete_one({"_id": ObjectId(student_id)})
     return result.deleted_count > 0
