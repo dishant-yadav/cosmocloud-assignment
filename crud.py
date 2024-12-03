@@ -34,9 +34,21 @@ def fetch_student_by_id(student_id: str) -> object:
 
 
 def update_student(student_id: str, update_data: dict) -> object:
-    result = students_collection.update_one(
-        {"_id": ObjectId(student_id)}, {"$set": update_data}
-    )
+    try:
+        obj_id = ObjectId(student_id)
+    except Exception:
+        raise HTTPException(status_code=400, detail="Invalid ID format.")
+
+    current_student = students_collection.find_one({"_id": obj_id})
+    if not current_student:
+        raise HTTPException(status_code=404, detail="Student not found.")
+
+    if "address" in update_data:
+        current_address = current_student.get("address", {})
+        updated_address = {**current_address, **update_data["address"]}
+        update_data["address"] = updated_address
+
+    result = students_collection.update_one({"_id": obj_id}, {"$set": update_data})
     return result.modified_count > 0
 
 
