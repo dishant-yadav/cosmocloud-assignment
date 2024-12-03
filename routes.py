@@ -44,8 +44,8 @@ def get_student_endpoint(id: str):
     return student
 
 
-@router.patch("/students/{id}")
-def update_student_endpoint(id: str, student: UserUpdateSchema, status_code=204):
+@router.patch("/students/{id}", status_code=204)
+def update_student_endpoint(id: str, student: UserUpdateSchema):
     updated = update_student(id, student.dict(exclude_unset=True))
     if not updated:
         raise HTTPException(status_code=404, detail="Student not found or not updated")
