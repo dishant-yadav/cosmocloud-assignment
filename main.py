@@ -12,3 +12,4 @@ app.include_router(student_router, prefix="/api")
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
+
