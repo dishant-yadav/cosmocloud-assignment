@@ -38,3 +38,8 @@ def update_student(student_id: str, update_data: dict):
         {"_id": ObjectId(student_id)}, {"$set": update_data}
     )
     return result.modified_count > 0
+
+
+def delete_student(student_id: str):
+    result = students_collection.delete_one({"_id": ObjectId(student_id)})
+    return result.deleted_count > 0

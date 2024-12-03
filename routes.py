@@ -1,11 +1,21 @@
-from fastapi import APIRouter, Query, HTTPException
+from fastapi import (
+    APIRouter,
+    Query,
+    HTTPException,
+)
 from schema import (
     UserCreateSchema,
     UserResponseSchema,
     ListStudentsResponse,
     UserUpdateSchema,
 )
-from crud import create_student, list_students, fetch_student_by_id, update_student
+from crud import (
+    create_student,
+    list_students,
+    fetch_student_by_id,
+    update_student,
+    delete_student,
+)
 
 router = APIRouter()
 
@@ -35,8 +45,16 @@ def get_student_endpoint(id: str):
 
 
 @router.patch("/students/{id}")
-def update_student_endpoint(id: str, student: UserUpdateSchema):
+def update_student_endpoint(id: str, student: UserUpdateSchema, status_code=204):
     updated = update_student(id, student.dict(exclude_unset=True))
     if not updated:
         raise HTTPException(status_code=404, detail="Student not found or not updated")
     return {"message": "Student updated successfully"}
+
+
+@router.delete("/students/{id}")
+def delete_student_endpoint(id: str):
+    deleted = delete_student(id)
+    if not deleted:
+        raise HTTPException(status_code=404, detail="Student not found or not deleted")
+    return {"message": "Student deleted successfully"}
