@@ -1,8 +1,8 @@
 from pymongo import MongoClient
 import os
 
-uri = os.getenv("MONGODBURI")
+MONGO_URL = os.getenv("MONGODBURI_LOCAL")
+DB_NAME = os.getenv("DB_NAME", "student_management")
 
-client = MongoClient(uri)
-db = client.get_database("student_management")
-student_collection = db.get_collection("students")
+client = MongoClient(MONGO_URL)
+db = client.get_database(DB_NAME)
