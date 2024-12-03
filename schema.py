@@ -18,7 +18,7 @@ class UserCreateSchema(BaseModel):
     address: AddressSchema
 
 
-class UserResponseSchema(UserCreateSchema):
+class UserResponseSchema(BaseModel):
     id: str
 
 
