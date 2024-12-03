@@ -1,4 +1,5 @@
 from pydantic import BaseModel
+from typing import List
 
 
 class AddressSchema(BaseModel):
@@ -14,3 +15,12 @@ class UserCreateSchema(BaseModel):
 
 class UserResponseSchema(UserCreateSchema):
     id: str
+
+
+class Student(BaseModel):
+    name: str
+    age: int
+
+
+class ListStudentsResponse(BaseModel):
+    data: List[Student]
