@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 
-MONGO_URI = os.getenv("MONGODBURI_LOCAL")
+MONGO_URI = os.getenv("MONGODBURI")
 DB_NAME = os.getenv("DB_NAME", "student_management")
 
 client = MongoClient(MONGO_URI)
